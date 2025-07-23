@@ -79,6 +79,10 @@ This solution leverages **Azure-native services**, along with optional integrati
 
 ---
 
+* **Architecture Diagram**:
+  <img width="1024" height="1024" alt="High-level architecture diagram for a scalable and secure disk monitoring solution in Azure and hybr" src="https://github.com/user-attachments/assets/21c3f1e9-9edf-4459-8086-4a6c387d9f14" />
+
+
 ## **Implementation Approaches**
 
 | Approach                                 | Description                                                                                                                                                                                             |
