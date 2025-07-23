@@ -34,6 +34,7 @@ This solution leverages **Azure-native services**, along with optional integrati
   * Leverage Azure Resource Tags (e.g., `Environment=Prod`, `App=SAP`) to logically group VMs.
   * Use these tags to dynamically scope DCRs and monitoring policies without manual intervention.
 
+
 ---
 
 ## **Visualization & Insights**
@@ -66,6 +67,15 @@ This solution leverages **Azure-native services**, along with optional integrati
 
   * Enforce DCR configurations and monitoring agents on all new virtual machines using **Azure Policy**.
   * Ensure consistent telemetry collection and adherence to monitoring standards across the environment.
+
+* **Logic App Integration**:
+  
+  * Trigger: Alert rule invokes a Logic App via Action Group.
+  * Logic App Workflow:
+  * HTTP Trigger from Azure Monitor.
+  * Parse JSON to extract VM name, disk info, and severity.
+  * Call Azure Automation/Ansible Tower API (or Ansible AWX) to run a playbook.
+
 
 ---
 
