@@ -42,6 +42,8 @@ This solution leverages **Azure-native services**, along with optional integrati
 * **Azure Monitor Workbooks**:
 
   * Build interactive dashboards using Kusto Query Language (KQL) on data in `InsightsMetrics`.
+  * A sample KQL query to analyze disk usage across virtual machines has been added to this repository.
+  * Use it with Azure Log Analytics to monitor and visualize disk space metrics such as % Free Space and Free Megabytes.
   * Visualize:
 
     * Disk usage trends over time
@@ -80,7 +82,8 @@ This solution leverages **Azure-native services**, along with optional integrati
 ---
 
 * **Architecture Diagram**:
-  <img width="1024" height="1024" alt="High-level architecture diagram for a scalable and secure disk monitoring solution in Azure and hybr" src="https://github.com/user-attachments/assets/21c3f1e9-9edf-4459-8086-4a6c387d9f14" />
+<img width="1024" height="1024" alt="A full, high-resolution architecture diagram for a scalable and secure disk monitoring solution in A" src="https://github.com/user-attachments/assets/0821afae-f7a8-49a4-a209-b2bed96d4102" />
+
 
 
 ## **Implementation Approaches**
@@ -102,4 +105,13 @@ This solution leverages **Azure-native services**, along with optional integrati
 * Customizable visualization and alerting workflows
 * Security-first and operations-scalable design
 
+## **Helpful Resources**
 
+  * What is Azure Monitor - https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/overview
+  * VM Insights - https://learn.microsoft.com/en-us/azure/azure-monitor/vm/vminsights-overview
+  * Monitor VMs - https://learn.microsoft.com/en-us/azure/virtual-machines/monitor-vm?toc=%2Fazure%2Fazure-monitor%2Ftoc.json
+  * Alerts in Azure Monitor - https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview
+  * Azure Monitor Workbooks - https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview
+  * Log Search alert rule - https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-create-log-alert-rule
+  * Automate witb Logic Apps - https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-logic-apps?tabs=send-email
+    
