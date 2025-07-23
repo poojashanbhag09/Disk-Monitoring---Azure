@@ -1,0 +1,25 @@
+// Query the InsightsMetrics table for disk metrics in the last 24 hours
+InsightsMetrics
+| where TimeGenerated >= ago(24h)
+// Filter for Azure VM Logical Disk FreeSpaceMB metrics
+| where Origin == "vm.azm.ms" and Namespace == "LogicalDisk" and Name == "FreeSpaceMB"
+// Extract the disk mount ID and disk size in GB from the Tags
+| extend 
+    Disk = tostring(todynamic(Tags)["vm.azm.ms/mountId"]),
+    Disk_Size_GB = todouble(todynamic(Tags)["vm.azm.ms/diskSizeMB"]) / 1024
+// Calculate average free space (in GB) by Computer, Disk, Disk Size, and ResourceId
+| summarize 
+    Disk_Free_Space_GB = avg(Val) / 1024 
+    by Computer, Disk, Disk_Size_GB, _ResourceId
+// Calculate used space in GB
+| extend 
+    Used_Space_GB = Disk_Size_GB - Disk_Free_Space_GB
+// Calculate used space as a percentage and flag if resource is an Azure VM
+| extend 
+    Used_Space_Percentage = round((Used_Space_GB / Disk_Size_GB) * 100, 2),
+    IsAzureVM = iff(_ResourceId has "Microsoft.Compute/virtualMachines", "Yes", "No")
+// Filter to show only disks where at least 10% of space is used
+| where Used_Space_Percentage >= 10
+// Select and rename output columns for clarity
+| project 
+    Computer, Disk, Disk_Size_GB, Disk_Free_Space_GB, Used_Space_GB, ['Used Space %'] = Used_Space_Percentage, IsAzureVM
