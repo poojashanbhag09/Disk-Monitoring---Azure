@@ -1,5 +1,3 @@
-
-
 InsightsMetrics
 | where TimeGenerated >= ago(24h)
 | where Origin == "vm.azm.ms" and Namespace == "LogicalDisk" and Name == "FreeSpaceMB"
@@ -13,11 +11,7 @@ InsightsMetrics
     Used_Space_GB = Disk_Size_GB - Disk_Free_Space_GB
 | extend 
     Used_Space_Percentage = round((Used_Space_GB / Disk_Size_GB) * 100, 2),
-    VM_Type = case(
-        _ResourceId has "Microsoft.Compute/virtualMachines", "Azure VM",
-        _ResourceId has "Microsoft.HybridCompute/machines", "Azure Arc VM",
-        "Other"
-    )
+    IsAzureVM = iff(_ResourceId has "Microsoft.Compute/virtualMachines", "Yes", "No")
 | where Used_Space_Percentage >= 10
 | project 
-    Computer, Disk, ['Used Space %'] = Used_Space_Percentage, VM_Type
+    Computer, Disk, Disk_Size_GB, Disk_Free_Space_GB, Used_Space_GB, ['Used Space %'] = Used_Space_Percentage, IsAzureVM
