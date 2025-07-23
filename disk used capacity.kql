@@ -1,3 +1,12 @@
+//This query analyzes disk usage on Azure VMs by examining the InsightsMetrics table. It:
+
+Filters metrics from the last 24 hours related to logical disks and free space.
+Extracts details about each disk, such as its size and mount ID.
+Calculates average free disk space and computes how much space is used (in GB and as a percentage).
+Flags whether the resource is an Azure VM.
+Filters to show only disks with 10% or more used space.
+Projects the results in a readable format.
+
 InsightsMetrics
 | where TimeGenerated >= ago(24h)
 | where Origin == "vm.azm.ms" and Namespace == "LogicalDisk" and Name == "FreeSpaceMB"
